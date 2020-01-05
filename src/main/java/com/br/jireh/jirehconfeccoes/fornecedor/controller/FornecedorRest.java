@@ -23,7 +23,7 @@ public class FornecedorRest {
     }
 
     @PostMapping("/save")
-    public FornecedorDTO save(FornecedorDTO fornecedorDTO){
+    public FornecedorDTO save(@RequestBody FornecedorDTO fornecedorDTO){
         LOGGER.info("Receiving persistence solicitation of fornecedor...");
         LOGGER.debug("Payload: {}", fornecedorDTO);
 
@@ -31,7 +31,7 @@ public class FornecedorRest {
     }
 
     @PutMapping("/update/{id}")
-    public FornecedorDTO update(FornecedorDTO fornecedorDTO,@PathVariable Long id){
+    public FornecedorDTO update(@RequestBody FornecedorDTO fornecedorDTO,@PathVariable Long id){
         LOGGER.info("Receiving persistence solicitation of fornecedor...");
         LOGGER.debug("Payload: {}", fornecedorDTO);
 

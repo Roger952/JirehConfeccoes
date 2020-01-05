@@ -25,7 +25,7 @@ public class ColorRest {
     }
 
     @PostMapping("/save")
-    public ColorDTO save(ColorDTO colorDTO) {
+    public ColorDTO save(@RequestBody ColorDTO colorDTO) {
         LOGGER.info("Receiving persistence solicitation of Cor...");
         LOGGER.debug("Payload: {}", colorDTO);
 
@@ -33,7 +33,7 @@ public class ColorRest {
     }
 
     @PutMapping("/update/{id}")
-    public ColorDTO update(ColorDTO colorDTO, @PathVariable Long id) {
+    public ColorDTO update(@RequestBody ColorDTO colorDTO, @PathVariable Long id) {
         LOGGER.info("Receiving persistence solicitation of Cor...");
         LOGGER.debug("Payload: {}", colorDTO);
 

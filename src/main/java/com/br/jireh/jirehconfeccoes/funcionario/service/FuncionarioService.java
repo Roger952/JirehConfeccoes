@@ -66,8 +66,6 @@ public class FuncionarioService {
 
         Optional<Funcionario> optionalFornecedor = iFuncionarioRepository.findById(id);
 
-        validate(funcionarioDTO);
-
         Funcionario funcionario;
         if (optionalFornecedor.isPresent()) {
             funcionario = optionalFornecedor.get();

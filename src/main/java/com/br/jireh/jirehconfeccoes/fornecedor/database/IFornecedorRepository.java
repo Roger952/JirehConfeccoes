@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IFornecedorRepository extends JpaRepository<Fornecedor, Long> {
+    Boolean existsByRazaoSocial (String razaoSocial);
+    Boolean existsByCnpj (String cnpj);
 }

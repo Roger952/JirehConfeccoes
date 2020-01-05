@@ -21,12 +21,14 @@ public class FornecedorService {
         this.iFornecedorRepository = iFornecedorRepository;
     }
 
-    private static void validate(FornecedorDTO fornecedorDTO) {
+    private void validate(FornecedorDTO fornecedorDTO) {
 
         LOGGER.info("Validando os produtos");
 
         if (fornecedorDTO.getRazaoSocial().isEmpty()) {
             throw new IllegalArgumentException("Informe a razao do fornecedor");
+        }else if (iFornecedorRepository.existsByRazaoSocial(fornecedorDTO.getRazaoSocial())){
+            throw new IllegalArgumentException("Já existe esta razão social");
         }
         if (fornecedorDTO.getTelefone().isEmpty()) {
             throw new IllegalArgumentException("Informe o telefone do fornecedor");
@@ -35,6 +37,8 @@ public class FornecedorService {
         }
         if (fornecedorDTO.getCnpj().isEmpty()) {
             throw new IllegalArgumentException("Informe o cnpj do fornecedor");
+        } else if (iFornecedorRepository.existsByCnpj(fornecedorDTO.getCnpj())){
+            throw new IllegalArgumentException("Já existe este cnpj");
         } else if (fornecedorDTO.getCnpj().length() > 14) {
             throw new IllegalArgumentException("O cnpj nao deve conter mais de 14 caracteres");
         } else if (CNPJValidation.isCNPJ(fornecedorDTO.getCnpj())) {

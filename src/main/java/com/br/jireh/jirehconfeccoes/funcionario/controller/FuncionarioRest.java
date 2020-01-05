@@ -19,7 +19,7 @@ public class FuncionarioRest {
     }
 
     @PostMapping("/save")
-    public FuncionarioDTO save(FuncionarioDTO funcionarioDTO) {
+    public FuncionarioDTO save(@RequestBody FuncionarioDTO funcionarioDTO) {
         LOGGER.info("Receiving persistence solicitation of funcionario...");
         LOGGER.debug("Payload: {}", funcionarioDTO);
 
@@ -27,7 +27,7 @@ public class FuncionarioRest {
     }
 
     @PutMapping("/update/{id}")
-    public FuncionarioDTO update(FuncionarioDTO funcionarioDTO, @PathVariable Long id) {
+    public FuncionarioDTO update(@RequestBody FuncionarioDTO funcionarioDTO, @PathVariable Long id) {
         LOGGER.info("Receiving persistence solicitation of funcionario...");
         LOGGER.debug("Payload: {}", funcionarioDTO);
 
