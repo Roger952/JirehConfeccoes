@@ -1,14 +1,16 @@
 package com.br.jireh.jirehconfeccoes.funcionario.controller;
 
+import com.br.jireh.jirehconfeccoes.funcionario.request.FuncionarioDTO;
 import com.br.jireh.jirehconfeccoes.funcionario.service.FuncionarioService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/fornecedor")
+@RequestMapping("/funcionarios")
 public class FuncionarioRest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FuncionarioRest.class);
 
     private final FuncionarioService funcionarioService;
 
@@ -16,4 +18,26 @@ public class FuncionarioRest {
         this.funcionarioService = funcionarioService;
     }
 
+    @PostMapping("/save")
+    public FuncionarioDTO save(FuncionarioDTO funcionarioDTO) {
+        LOGGER.info("Receiving persistence solicitation of funcionario...");
+        LOGGER.debug("Payload: {}", funcionarioDTO);
+
+        return funcionarioService.save(funcionarioDTO);
+    }
+
+    @PutMapping("/update/{id}")
+    public FuncionarioDTO update(FuncionarioDTO funcionarioDTO, @PathVariable Long id) {
+        LOGGER.info("Receiving persistence solicitation of funcionario...");
+        LOGGER.debug("Payload: {}", funcionarioDTO);
+
+        return this.funcionarioService.update(funcionarioDTO, id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id) {
+        LOGGER.info("Receiving persistence solicitation of funcionario...");
+
+        this.funcionarioService.deleteById(id);
+    }
 }

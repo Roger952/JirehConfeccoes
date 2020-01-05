@@ -3,6 +3,8 @@ package com.br.jireh.jirehconfeccoes.fornecedor.service;
 import com.br.jireh.jirehconfeccoes.fornecedor.database.IFornecedorRepository;
 import com.br.jireh.jirehconfeccoes.fornecedor.model.Fornecedor;
 import com.br.jireh.jirehconfeccoes.fornecedor.request.FornecedorDTO;
+import com.br.jireh.jirehconfeccoes.validations.CNPJValidation;
+import com.br.jireh.jirehconfeccoes.validations.EmailValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,12 +30,22 @@ public class FornecedorService {
         }
         if (fornecedorDTO.getTelefone().isEmpty()) {
             throw new IllegalArgumentException("Informe o telefone do fornecedor");
+        } else if (fornecedorDTO.getTelefone().length() > 14) {
+            throw new IllegalArgumentException("O telefone nao deve conter mais de 14 caracteres");
         }
         if (fornecedorDTO.getCnpj().isEmpty()) {
             throw new IllegalArgumentException("Informe o cnpj do fornecedor");
+        } else if (fornecedorDTO.getCnpj().length() > 14) {
+            throw new IllegalArgumentException("O cnpj nao deve conter mais de 14 caracteres");
+        } else if (CNPJValidation.isCNPJ(fornecedorDTO.getCnpj())) {
+            throw new IllegalArgumentException("Cnpj nao inválido");
         }
         if (fornecedorDTO.getEmail().isEmpty()) {
             throw new IllegalArgumentException("Informe o email do fornecedor");
+        } else if (fornecedorDTO.getEmail().length() > 50) {
+            throw new IllegalArgumentException("O email nao deve conter mais de 50 caracteres");
+        } else if (EmailValidation.isValidEmailAddressRegex(fornecedorDTO.getEmail())) {
+            throw new IllegalArgumentException("Email nao inválido");
         }
         if (fornecedorDTO.getCep().isEmpty()) {
             throw new IllegalArgumentException("Informe o cep do fornecedor");
@@ -82,5 +94,21 @@ public class FornecedorService {
         }
 
         throw new IllegalArgumentException("Este fornecedor não foi encontrado");
+    }
+
+    public void deleteById(Long id) {
+        LOGGER.info("Deletando o fornecedor");
+
+        iFornecedorRepository.deleteById(id);
+    }
+
+    public Fornecedor findById(Long id){
+        Optional<Fornecedor> optionalFornecedor = iFornecedorRepository.findById(id);
+
+        if (optionalFornecedor.isPresent()){
+            return optionalFornecedor.get();
+        }
+
+        throw new IllegalArgumentException("Nao existe um fornecedor com este Id");
     }
 }

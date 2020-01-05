@@ -46,7 +46,7 @@ public class FuncionarioService {
     public FuncionarioDTO save(FuncionarioDTO funcionarioDTO) {
         Funcionario funcionario = new Funcionario();
 
-        LOGGER.info("Salvando o fornecedor");
+        LOGGER.info("Salvando o funcioanario");
 
         validate(funcionarioDTO);
 
@@ -72,7 +72,7 @@ public class FuncionarioService {
         if (optionalFornecedor.isPresent()) {
             funcionario = optionalFornecedor.get();
 
-            LOGGER.info("Atualizando o fornecedor");
+            LOGGER.info("Atualizando o funcioanario");
 
             funcionario.setNome(funcionarioDTO.getNome());
             funcionario.setCpf(funcionarioDTO.getCpf());
@@ -87,5 +87,11 @@ public class FuncionarioService {
         }
 
         throw new IllegalArgumentException("Este fornecedor não foi encontrado");
+    }
+
+    public void deleteById(Long id){
+        LOGGER.info("Deletando o funcioanario");
+
+        iFuncionarioRepository.deleteById(id);
     }
 }
