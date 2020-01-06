@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,14 +42,14 @@ public class FornecedorService {
             throw new IllegalArgumentException("Já existe este cnpj");
         } else if (fornecedorDTO.getCnpj().length() > 14) {
             throw new IllegalArgumentException("O cnpj nao deve conter mais de 14 caracteres");
-        } else if (CNPJValidation.isCNPJ(fornecedorDTO.getCnpj())) {
+        } else if (!CNPJValidation.isCNPJ(fornecedorDTO.getCnpj())) {
             throw new IllegalArgumentException("Cnpj nao inválido");
         }
         if (fornecedorDTO.getEmail().isEmpty()) {
             throw new IllegalArgumentException("Informe o email do fornecedor");
         } else if (fornecedorDTO.getEmail().length() > 50) {
             throw new IllegalArgumentException("O email nao deve conter mais de 50 caracteres");
-        } else if (EmailValidation.isValidEmailAddressRegex(fornecedorDTO.getEmail())) {
+        } else if (!EmailValidation.isValidEmailAddressRegex(fornecedorDTO.getEmail())) {
             throw new IllegalArgumentException("Email nao inválido");
         }
         if (fornecedorDTO.getCep().isEmpty()) {
@@ -66,7 +67,7 @@ public class FornecedorService {
         fornecedor.setRazaoSocial(fornecedorDTO.getRazaoSocial());
         fornecedor.setCnpj(fornecedorDTO.getCnpj());
         fornecedor.setEmail(fornecedorDTO.getEmail());
-        fornecedor.setTelefone(fornecedorDTO.getEmail());
+        fornecedor.setTelefone(fornecedorDTO.getTelefone());
         fornecedor.setCep(fornecedorDTO.getCep());
 
         fornecedor = iFornecedorRepository.save(fornecedor);
@@ -114,5 +115,9 @@ public class FornecedorService {
         }
 
         throw new IllegalArgumentException("Nao existe um fornecedor com este Id");
+    }
+
+    public List<Fornecedor> findAll(){
+        return iFornecedorRepository.findAll();
     }
 }

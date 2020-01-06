@@ -1,0 +1,24 @@
+<h2>Fornecedor Details</h2> 
+
+<hr/>
+<div *ngIf="fornecedor">
+  <div>
+    <label><b>Razaão Social: </b></label> {{fornecedor.razaoSocial}}
+  </div>
+  <div>
+    <label><b>Cnpj: </b></label> {{fornecedor.cnpj}}
+  </div>
+  <div>
+    <label><b>Email: </b></label> {{fornecedor.email}}
+  </div>
+  <div>
+    <label><b>Telefone: </b></label> {{fornecedor.telefone}}
+  </div>
+  <div>
+    <label><b>Cep: </b></label> {{fornecedor.cep}}
+  </div>  
+</div>
+
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to Fornecedor List</button><br>

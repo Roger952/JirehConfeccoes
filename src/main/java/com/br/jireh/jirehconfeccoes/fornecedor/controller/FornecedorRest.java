@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4300")
 @RequestMapping("/fornecedores")
 public class FornecedorRest {
 
@@ -31,7 +33,7 @@ public class FornecedorRest {
     }
 
     @PutMapping("/update/{id}")
-    public FornecedorDTO update(@RequestBody FornecedorDTO fornecedorDTO,@PathVariable Long id){
+    public FornecedorDTO update(@RequestBody FornecedorDTO fornecedorDTO,@PathVariable(value = "id") Long id){
         LOGGER.info("Receiving persistence solicitation of fornecedor...");
         LOGGER.debug("Payload: {}", fornecedorDTO);
 
@@ -39,9 +41,19 @@ public class FornecedorRest {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable(value = "id") Long id){
         LOGGER.info("Receiving persistence solicitation of fornecedor...");
 
         this.fornecedorService.deleteById(id);
+    }
+
+    @GetMapping("/findById/{id}")
+    public Fornecedor findById(@PathVariable(value = "id") Long id){
+        return fornecedorService.findById(id);
+    }
+
+    @GetMapping("/findAll")
+    public List<Fornecedor> findAll(){
+        return fornecedorService.findAll();
     }
 }

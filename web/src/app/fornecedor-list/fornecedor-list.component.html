@@ -1,0 +1,31 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Fornecedor List</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Razao Social</th>
+            <th>cnpj</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Cep</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fornecedor of fornecedores | async">
+            <td>{{fornecedor.razaoSocial}}</td>
+            <td>{{fornecedor.cnpj}}</td>
+            <td>{{fornecedor.email}}</td>
+            <td>{{fornecedor.telefone}}</td>
+            <td>{{fornecedor.cep}}</td>
+            <td><button (click)="deleteFornecedor(fornecedor.id)" class="btn btn-danger">Delete</button>
+                <button (click)="updateFornecedor(fornecedor.id)" class="btn btn-info" style="margin-left: 10px">Update</button>
+                <button (click)="fornecedorDetails(fornecedor.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
